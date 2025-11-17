@@ -49,10 +49,10 @@ export default function HomePage() {
   const { language } = useLanguage();
 
   return (
-    <div className="flex-1 px-6 py-6">
+    <div className="flex-1 px-3 md:px-6 py-4 md:py-6">
       <div className="max-w-5xl mx-auto">
         {/* Hero Banner */}
-        <div className="mb-6 bg-white border shadow-sm">
+        <div className="mb-4 md:mb-6 bg-white border shadow-sm">
           <img
             src="https://ext.same-assets.com/1625354228/2341417022.jpeg"
             alt="SWISSTEN LCD Cables"
@@ -63,19 +63,19 @@ export default function HomePage() {
         {/* Tabs and product list box */}
         <div className="bg-white border shadow-sm">
           {/* Tabs for Produktové novinky / Naposledy naskladněno */}
-          <div className="border-b px-4 pt-3">
-            <div className="flex gap-4">
-              <button className="px-4 py-2 text-sm font-semibold border-b-2 border-[#d7266b] text-[#d7266b]">
+          <div className="border-b px-2 md:px-4 pt-3">
+            <div className="flex gap-2 md:gap-4 overflow-x-auto">
+              <button className="px-3 md:px-4 py-2 text-xs md:text-sm font-semibold border-b-2 border-[#d7266b] text-[#d7266b] whitespace-nowrap">
                 {language === 'cs' ? 'Produktové novinky' : 'New Products'}
               </button>
-              <button className="px-4 py-2 text-sm text-gray-600 hover:text-[#d7266b]">
+              <button className="px-3 md:px-4 py-2 text-xs md:text-sm text-gray-600 hover:text-[#d7266b] whitespace-nowrap">
                 {language === 'cs' ? 'Naposledy naskladněno' : 'Recently Stocked'}
               </button>
             </div>
           </div>
 
           {/* Product Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 py-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-3 md:px-4 py-4 md:py-6">
             {featuredProducts.map((product) => (
               <ProductCard key={product.code} {...product} />
             ))}

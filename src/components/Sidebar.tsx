@@ -1,5 +1,5 @@
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, ChevronRight, X } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -9,10 +9,21 @@ interface CategoryItem {
   children?: CategoryItem[];
 }
 
-export default function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { t } = useLanguage();
   const location = useLocation();
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+
+  // Close sidebar on route change (mobile)
+  useEffect(() => {
+    onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   const categories: CategoryItem[] = [
     { key: "preparing", path: "/pripravujeme" },
@@ -116,13 +127,41 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 bg-white border-r shadow-sm">
-      <div className="p-4">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
-          Catégories
-        </h3>
-        {categories.map((category) => {
-          const isActive = category.path && location.pathname === category.path;
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`
+        fixed lg:static inset-y-0 left-0 z-50
+        w-64 bg-white border-r shadow-sm
+        transform transition-transform duration-300 ease-in-out
+        lg:transform-none
+        ${
+          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        }
+      `}>
+        {/* Mobile Close Button */}
+        <div className="lg:hidden flex justify-end p-2 border-b">
+          <button 
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="p-4 overflow-y-auto h-full">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
+            Catégories
+          </h3>
+          {categories.map((category) => {
+            const isActive = category.path && location.pathname === category.path;
 
           return (
             <div key={category.key} className="mb-1">
@@ -131,8 +170,8 @@ export default function Sidebar() {
                   to={category.path}
                   className={`block px-3 py-2 text-sm rounded transition-colors ${
                     isActive
-                      ? "bg-blue-50 font-medium text-[#007bff]"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-[#007bff]"
+                      ? "bg-blue-50 font-medium text-[#d7266b]"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-[#d7266b]"
                   }`}
                 >
                   {getCategoryName(category.key)}
@@ -153,9 +192,10 @@ export default function Sidebar() {
                 </button>
               )}
             </div>
-          );
-        })}
-      </div>
-    </aside>
+            );
+          })}
+        </div>
+      </aside>
+    </>
   );
 }
