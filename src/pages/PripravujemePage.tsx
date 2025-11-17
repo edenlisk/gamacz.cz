@@ -2,6 +2,7 @@ import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const products = [
   {
@@ -49,13 +50,15 @@ const products = [
 ];
 
 export default function PripravujemePage() {
+  const { t, language } = useLanguage();
+
   return (
     <div className="flex-1 p-6">
       {/* Breadcrumb */}
       <div className="text-sm text-gray-600 mb-4">
-        <span className="hover:text-[#d7266b] cursor-pointer">Hlavní Strana</span>
+        <span className="hover:text-[#d7266b] cursor-pointer">{t.homePage}</span>
         {" > "}
-        <span className="font-semibold">Připravujeme</span>
+        <span className="font-semibold">{t.preparing}</span>
       </div>
 
       {/* Page Header */}
@@ -63,20 +66,20 @@ export default function PripravujemePage() {
         <div className="flex items-center gap-4 mb-4">
           <img
             src="https://ext.same-assets.com/1625354228/2261583024.jpeg"
-            alt="Připravujeme"
+            alt={t.preparing}
             className="w-24 h-24 object-contain bg-white p-2 border rounded"
           />
-          <h1 className="text-2xl font-bold text-[#00305e]">PŘIPRAVUJEME</h1>
+          <h1 className="text-2xl font-bold text-[#00305e]">{t.preparing.toUpperCase()}</h1>
         </div>
       </div>
 
       {/* Filters */}
       <div className="bg-white border rounded p-4 mb-6">
         <div className="flex items-center gap-4 mb-4">
-          <span className="text-sm font-semibold">Výrobce:</span>
+          <span className="text-sm font-semibold">{t.manufacturer}:</span>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" />
-            <span>VŠICHNI</span>
+            <span>{t.all}</span>
           </label>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" />
@@ -85,26 +88,26 @@ export default function PripravujemePage() {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-sm font-semibold">Hledat:</span>
-          <Input placeholder="Text" className="max-w-xs" />
-          <Button className="bg-[#d7266b] hover:bg-[#ce2867]">HLEDAT</Button>
+          <span className="text-sm font-semibold">{t.search}:</span>
+          <Input placeholder={language === 'cs' ? 'Text' : 'Text'} className="max-w-xs" />
+          <Button className="bg-[#d7266b] hover:bg-[#ce2867]">{t.searchButton}</Button>
         </div>
 
         <div className="flex items-center gap-4 mt-4">
-          <span className="text-sm">Řadit podle:</span>
+          <span className="text-sm">{t.sortBy}:</span>
           <Select defaultValue="name">
             <SelectTrigger className="w-48">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="name">výchozí řazení</SelectItem>
-              <SelectItem value="price-asc">Cena vzestupně</SelectItem>
-              <SelectItem value="price-desc">Cena sestupně</SelectItem>
+              <SelectItem value="name">{t.defaultSort}</SelectItem>
+              <SelectItem value="price-asc">{t.priceAsc}</SelectItem>
+              <SelectItem value="price-desc">{t.priceDesc}</SelectItem>
             </SelectContent>
           </Select>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" />
-            <span>pouze položky skladem</span>
+            <span>{t.inStockOnly}</span>
           </label>
         </div>
       </div>
@@ -112,10 +115,10 @@ export default function PripravujemePage() {
       {/* Product count */}
       <div className="flex items-center justify-between mb-4">
         <div className="text-sm text-gray-600">
-          <span className="font-semibold">{products.length} Kč</span>
+          <span className="font-semibold">{products.length} {t.items}</span>
         </div>
         <div className="text-sm">
-          Položek na stránku: <span className="font-semibold">15 položek</span>
+          {t.itemsPerPage}: <span className="font-semibold">15 {t.items}</span>
         </div>
       </div>
 

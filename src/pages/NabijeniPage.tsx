@@ -1,6 +1,7 @@
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const products = [
   {
@@ -54,35 +55,49 @@ const products = [
 ];
 
 export default function NabijeniPage() {
+  const { t, language } = useLanguage();
+
   return (
     <div className="flex-1 p-6">
       {/* Breadcrumb */}
       <div className="text-sm text-gray-600 mb-4">
-        <span className="hover:text-[#d7266b] cursor-pointer">Hlavní Strana</span>
+        <span className="hover:text-[#d7266b] cursor-pointer">{t.homePage}</span>
         {" > "}
-        <span className="font-semibold">Nabíjení Do Sítě</span>
+        <span className="font-semibold">{t.charging}</span>
       </div>
 
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#00305e] mb-2">NABÍJENÍ DO SÍTĚ</h1>
+        <h1 className="text-2xl font-bold text-[#00305e] mb-2">{t.charging.toUpperCase()}</h1>
         <div className="flex gap-4 text-sm text-gray-600">
-          <span className="hover:text-[#d7266b] cursor-pointer">Adaptéry s kabelem</span>
-          <span className="hover:text-[#d7266b] cursor-pointer">Adaptéry</span>
-          <span className="hover:text-[#d7266b] cursor-pointer font-semibold">GaN + rychlé nabíjení</span>
-          <span className="hover:text-[#d7266b] cursor-pointer">SN pro UK</span>
-          <span className="hover:text-[#d7266b] cursor-pointer">SN pro notebooky</span>
-          <span className="hover:text-[#d7266b] cursor-pointer">SN samoprodavač</span>
+          <span className="hover:text-[#d7266b] cursor-pointer">
+            {language === 'cs' ? 'Adaptéry s kabelem' : 'Adapters with cable'}
+          </span>
+          <span className="hover:text-[#d7266b] cursor-pointer">
+            {language === 'cs' ? 'Adaptéry' : 'Adapters'}
+          </span>
+          <span className="hover:text-[#d7266b] cursor-pointer font-semibold">
+            {language === 'cs' ? 'GaN + rychlé nabíjení' : 'GaN + fast charging'}
+          </span>
+          <span className="hover:text-[#d7266b] cursor-pointer">
+            {language === 'cs' ? 'SN pro UK' : 'Adapters for UK'}
+          </span>
+          <span className="hover:text-[#d7266b] cursor-pointer">
+            {language === 'cs' ? 'SN pro notebooky' : 'Adapters for laptops'}
+          </span>
+          <span className="hover:text-[#d7266b] cursor-pointer">
+            {language === 'cs' ? 'SN samoprodavač' : 'Vending machine'}
+          </span>
         </div>
       </div>
 
       {/* Filters */}
       <div className="bg-white border rounded p-4 mb-6">
         <div className="flex items-center gap-4 mb-4">
-          <span className="text-sm font-semibold">Výrobce:</span>
+          <span className="text-sm font-semibold">{t.manufacturer}:</span>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" defaultChecked />
-            <span>VŠICHNI</span>
+            <span>{t.all}</span>
           </label>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" />
@@ -91,20 +106,20 @@ export default function NabijeniPage() {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-sm">Řadit podle:</span>
+          <span className="text-sm">{t.sortBy}:</span>
           <Select defaultValue="name">
             <SelectTrigger className="w-48">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="name">výchozí řazení</SelectItem>
-              <SelectItem value="price-asc">Cena vzestupně</SelectItem>
-              <SelectItem value="price-desc">Cena sestupně</SelectItem>
+              <SelectItem value="name">{t.defaultSort}</SelectItem>
+              <SelectItem value="price-asc">{t.priceAsc}</SelectItem>
+              <SelectItem value="price-desc">{t.priceDesc}</SelectItem>
             </SelectContent>
           </Select>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" />
-            <span>pouze položky skladem</span>
+            <span>{t.inStockOnly}</span>
           </label>
         </div>
       </div>
@@ -112,10 +127,10 @@ export default function NabijeniPage() {
       {/* Product count */}
       <div className="flex items-center justify-between mb-4">
         <div className="text-sm text-gray-600">
-          <span className="font-semibold">71 Kč</span> - <span className="font-semibold">900 Kč</span>
+          <span className="font-semibold">71 {language === 'cs' ? 'Kč' : 'CZK'}</span> - <span className="font-semibold">900 {language === 'cs' ? 'Kč' : 'CZK'}</span>
         </div>
         <div className="text-sm">
-          Položek na stránku: <span className="font-semibold">69 položek</span>
+          {t.itemsPerPage}: <span className="font-semibold">69 {t.items}</span>
         </div>
       </div>
 
