@@ -116,8 +116,11 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 bg-[#e8ecf1] border-r">
+    <aside className="w-64 bg-white border-r shadow-sm">
       <div className="p-4">
+        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
+          Catégories
+        </h3>
         {categories.map((category) => {
           const isActive = category.path && location.pathname === category.path;
 
@@ -128,8 +131,8 @@ export default function Sidebar() {
                   to={category.path}
                   className={`block px-3 py-2 text-sm rounded transition-colors ${
                     isActive
-                      ? "bg-white font-semibold text-[#d7266b]"
-                      : "text-gray-800 hover:bg-white"
+                      ? "bg-blue-50 font-medium text-[#007bff]"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-[#007bff]"
                   }`}
                 >
                   {getCategoryName(category.key)}
@@ -137,7 +140,7 @@ export default function Sidebar() {
               ) : (
                 <button
                   onClick={() => toggleCategory(category.key)}
-                  className="w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-white rounded transition-colors text-left"
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#007bff] rounded transition-colors text-left"
                 >
                   <span>{getCategoryName(category.key)}</span>
                   {category.children && (

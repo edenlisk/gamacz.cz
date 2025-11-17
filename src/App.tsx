@@ -24,7 +24,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
-        <div className="min-h-screen flex flex-col bg-[#f6f7f9]">
+        <div className="min-h-screen flex flex-col bg-gray-50">
           <Header />
           <div className="flex flex-1">
             <Sidebar />

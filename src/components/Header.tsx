@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header className="bg-white">
       {/* Top bar with language flags */}
-      <div className="bg-[#6780a8] text-white px-6 py-1.5 flex justify-end gap-3">
+      <div className="bg-[#a83141] text-white px-6 py-1.5 flex justify-end gap-3">
         <button 
           onClick={() => setLanguage('cs')} 
           className={`hover:opacity-80 transition-opacity ${language === 'cs' ? 'opacity-100' : 'opacity-70'}`}
@@ -46,12 +46,15 @@ export default function Header() {
 
       {/* Main header */}
       <div className="flex items-center justify-between px-6 py-4 bg-white border-b">
-        {/* Logo */}
+        {/* Logo - ONLY CHANGED TO SUITECROSS */}
         <Link to="/" className="flex flex-col">
           <img
-            src="https://ext.same-assets.com/1625354228/1701215901.png"
-            alt="GAMACZ"
+            src="https://suitecross.com/web/image/website/1/logo/suite%20cross?unique=f40a6d3"
+            alt="SuiteCross"
             className="h-10"
+            onError={(e) => {
+              e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Ctext x='10' y='40' font-family='Arial' font-size='24' fill='%23333'%3ESuiteCross%3C/text%3E%3C/svg%3E";
+            }}
           />
           <span className="text-xs text-gray-600 mt-0.5">gsm accessories</span>
         </Link>
@@ -116,7 +119,7 @@ export default function Header() {
       </div>
 
       {/* Navigation menu */}
-      <nav className="bg-[#00305e] text-white px-6 py-2.5">
+      <nav className="bg-[#580D17] text-white px-6 py-2.5">
         <ul className="flex gap-8 text-sm font-semibold">
           <li
             className={`cursor-pointer transition-colors ${
